@@ -34,7 +34,8 @@ namespace SalesWebMvc.Models
             var result = (from s in Sellers
                           select s.TotalSales(initial, final)).DefaultIfEmpty(0.0).Sum();
             return result;
-                         
+            //return Sellers.Sum(seller => seller.TotalSales(initial, final));
+
         }
 
 

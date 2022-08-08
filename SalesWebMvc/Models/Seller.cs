@@ -63,9 +63,10 @@ namespace SalesWebMvc.Models
         public double TotalSales(DateTime initial, DateTime final)
         {
             var query = (from s in Sales
-                         where s.Date.CompareTo(initial) <= 0 && s.Date.CompareTo(final) >= 0
+                         where s.Date.CompareTo(initial) >= 0 && s.Date.CompareTo(final) <= 0
                          select s.Amount).DefaultIfEmpty(0.0).Sum();
             return query;
+            //return Sales.Where(sr => sr.Date >= initial && sr.Date <= final).Sum(sr => sr.Amount);
         }
 
 
