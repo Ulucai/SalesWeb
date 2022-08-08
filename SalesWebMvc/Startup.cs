@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Data;
 using SalesWebMvc.Services;
@@ -36,9 +38,9 @@ namespace SalesWebMvc
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            
+
             services.AddDbContext<SalesWebMvcContext>(options =>
-                    options.UseMySql(Configuration.GetConnectionString("SalesWebMvcContext"), builder=>
+                    options.UseMySql(Configuration.GetConnectionString("SalesWebMvcContext"), builder =>
                     builder.MigrationsAssembly("SalesWebMvc")));
             services.AddScoped<SeedingService>();
             services.AddScoped<SellerService>();
@@ -48,6 +50,14 @@ namespace SalesWebMvc
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
         {
+            var enUs = new CultureInfo("en-Us");
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(enUs),
+                SupportedCultures = new List<CultureInfo> { enUs },
+                SupportedUICultures = new List<CultureInfo> { enUs }
+            };
+            app.UseRequestLocalization(localizationOptions);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
