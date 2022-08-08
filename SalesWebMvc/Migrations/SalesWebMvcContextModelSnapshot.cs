@@ -73,7 +73,7 @@ namespace SalesWebMvc.Migrations
 
             modelBuilder.Entity("SalesWebMvc.Models.SalesRecord", b =>
                 {
-                    b.HasOne("SalesWebMvc.Models.Seller")
+                    b.HasOne("SalesWebMvc.Models.Seller", "Seller")
                         .WithMany("Sales")
                         .HasForeignKey("SellerId");
                 });

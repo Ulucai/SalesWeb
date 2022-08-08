@@ -9,7 +9,7 @@ using SalesWebMvc.Data;
 namespace SalesWebMvc.Migrations
 {
     [DbContext(typeof(SalesWebMvcContext))]
-    [Migration("20220808004513_OtherEntities")]
+    [Migration("20220808011024_OtherEntities")]
     partial class OtherEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,7 +75,7 @@ namespace SalesWebMvc.Migrations
 
             modelBuilder.Entity("SalesWebMvc.Models.SalesRecord", b =>
                 {
-                    b.HasOne("SalesWebMvc.Models.Seller")
+                    b.HasOne("SalesWebMvc.Models.Seller", "Seller")
                         .WithMany("Sales")
                         .HasForeignKey("SellerId");
                 });
